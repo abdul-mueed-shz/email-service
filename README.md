@@ -62,7 +62,7 @@ docker-compose up --build
 ```
 
 ## 🔐 Configuration via .env
-```bash
+```env
 JAVA.MAIL.SENDER.EMAIL=your.email@example.com
 JAVA.MAIL.SENDER.APP.PASSWORD=your_app_password
 KAFKA.BOOTSTRAP.SERVERS=kafka:9092
