@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: email-service
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${JAVA.MAIL.SENDER.EMAIL:no-reply@example.com}
+    password: ${JAVA.MAIL.SENDER.APP.PASSWORD:dummy-password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  h2:
+    console:
+      enabled: true             # Enables the H2 console at /h2-console
+      path: /h2-console
+  sql:
+    init:
+      platform: h2
+
+  jpa:
+    database-platform: ${JPA.DATABASE.PLATFORM}  # H2 dialect for JPA
+    hibernate:
+      ddl-auto: update             # Automatically creates and updates tables based on entities
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  kafka:
+    bootstrap-servers: ${KAFKA.BOOTSTRAP.SERVERS:localhost:9092}
+    groups:
+      email-group: ${KAFKA.GROUPS.EMAILS:defaultEmailGroup}
+      otp-group: ${KAFKA.GROUPS.OTP:defaultOtpGroup}
+
+    topics:
+      consume:
+        email-topic: ${KAFKA.TOPICS.CONSUME.EMAILS:emails}
+      produce:
+        otp-topic: ${KAFKA.TOPICS.PRODUCE.OTP:generated-otp}
