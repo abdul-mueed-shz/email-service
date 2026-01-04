@@ -2,7 +2,7 @@ package com.abdul.email.domain.email.usecase;
 
 import com.abdul.email.domain.email.UnableToSendEmailException;
 import com.abdul.email.domain.email.model.NumericOtpInfo;
-import com.abdul.email.domain.email.port.out.OtpPublisher;
+import com.abdul.email.domain.email.port.in.OtpPublisher;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

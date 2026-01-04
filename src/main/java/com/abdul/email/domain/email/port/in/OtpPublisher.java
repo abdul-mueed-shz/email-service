@@ -1,4 +1,4 @@
-package com.abdul.email.domain.email.port.out;
+package com.abdul.email.domain.email.port.in;
 
 import com.abdul.email.domain.email.model.NumericOtpInfo;
 

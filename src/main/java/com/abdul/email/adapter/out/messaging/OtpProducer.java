@@ -3,7 +3,7 @@ package com.abdul.email.adapter.out.messaging;
 
 import com.abdul.email.config.KafkaProperties;
 import com.abdul.email.domain.email.model.NumericOtpInfo;
-import com.abdul.email.domain.email.port.out.OtpPublisher;
+import com.abdul.email.domain.email.port.in.OtpPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

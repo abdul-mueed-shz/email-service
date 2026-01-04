@@ -1,6 +1,6 @@
 package com.abdul.email.domain.email.usecase;
 
-import com.abdul.email.domain.email.port.out.OtpPublisher;
+import com.abdul.email.domain.email.port.in.OtpPublisher;
 import com.abdul.email.domain.email.utils.OtpGenerator;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

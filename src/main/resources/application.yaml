@@ -46,3 +46,8 @@ spring:
         email-topic: ${KAFKA.TOPICS.CONSUME.EMAILS:emails}
       produce:
         otp-topic: ${KAFKA.TOPICS.PRODUCE.OTP:generated-otp}
+
+# Email Job Scheduler Configuration
+email-job:
+  cron: ${EMAIL.JOB.CRON:0 */5 * * * *}  # Default: runs every 5 minutes
+
