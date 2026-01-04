@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "spring.kafka")
 public class KafkaProperties {
 
+    private boolean enabled;
+
     private String bootstrapServers;
 
     private Group groups;

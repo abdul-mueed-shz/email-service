@@ -1,6 +1,6 @@
 package com.abdul.email.domain.email.usecase;
 
-import com.abdul.email.adapter.out.messaging.OtpProducer;
+import com.abdul.email.domain.email.port.out.OtpPublisher;
 import com.abdul.email.domain.email.utils.OtpGenerator;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -17,10 +17,10 @@ public class SendOtpEmailUseCaseImpl extends AbstractSendEmailUseCase {
     private final TemplateEngine templateEngine;
 
     public SendOtpEmailUseCaseImpl(
-            OtpProducer otpProducer,
+            OtpPublisher otpPublisher,
             JavaMailSender mailSender,
             TemplateEngine templateEngine) {
-        super(otpProducer);
+        super(otpPublisher);
         this.mailSender = mailSender;
         this.templateEngine = templateEngine;
     }

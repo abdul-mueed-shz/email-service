@@ -14,22 +14,28 @@ spring:
             enable: true
   h2:
     console:
-      enabled: true             # Enables the H2 console at /h2-console
-      path: /h2-console
+      enabled: ${H2.CONSOLE.ENABLED:true}
+      path: ${H2.CONSOLE.PATH:/h2-console}
   sql:
     init:
       platform: h2
 
+  datasource:
+    username: ${SPRING.DATASOURCE.USERNAME:root}
+    password: ${SPRING.DATASOURCE.PASSWORD:root}
+    url: ${SPRING.DATASOURCE.URL:jdbc:h2:mem:testdb}
+
   jpa:
-    database-platform: ${JPA.DATABASE.PLATFORM}  # H2 dialect for JPA
+    database-platform: ${JPA.DATABASE.PLATFORM:org.hibernate.dialect.H2Dialect} # H2 dialect for JPA
     hibernate:
-      ddl-auto: update             # Automatically creates and updates tables based on entities
-    show-sql: true
+      ddl-auto: ${SPRING.JPA.HIBERNATE.DDL-AUTO:update} # Automatically creates and updates tables based on entities
+    show-sql: ${SPRING.JPA.SHOW-SQL:false}
     properties:
       hibernate:
-        format_sql: true
+        format_sql: ${SPRING.JPA.PROPERTIES.HIBERNATE.FORMAT_SQL:false}
 
   kafka:
+    enabled: ${KAFKA.ENABLED:false}
     bootstrap-servers: ${KAFKA.BOOTSTRAP.SERVERS:localhost:9092}
     groups:
       email-group: ${KAFKA.GROUPS.EMAILS:defaultEmailGroup}

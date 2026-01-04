@@ -5,6 +5,7 @@ import com.abdul.email.domain.email.model.SendEmailInfo;
 import com.abdul.email.domain.email.usecase.AbstractSendEmailUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationContext;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@ConditionalOnProperty(name = "spring.kafka.enabled", havingValue = "true")
 public class KafkaConsumerListener {
 
     private final ApplicationContext applicationContext;

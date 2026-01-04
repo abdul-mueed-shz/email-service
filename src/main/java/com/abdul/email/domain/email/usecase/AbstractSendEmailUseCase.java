@@ -1,8 +1,8 @@
 package com.abdul.email.domain.email.usecase;
 
-import com.abdul.email.adapter.out.messaging.OtpProducer;
 import com.abdul.email.domain.email.UnableToSendEmailException;
 import com.abdul.email.domain.email.model.NumericOtpInfo;
+import com.abdul.email.domain.email.port.out.OtpPublisher;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public abstract class AbstractSendEmailUseCase {
 
-    private final OtpProducer otpProducer;
+    private final OtpPublisher otpPublisher;
 
     public void execute(String toEmail) {
         try {
-            otpProducer.sendNumericOtpInfo(
+            otpPublisher.sendNumericOtpInfo(
                     new NumericOtpInfo(
                             toEmail,
                             sendMail(toEmail)
