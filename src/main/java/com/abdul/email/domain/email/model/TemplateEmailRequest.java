@@ -34,6 +34,6 @@ public class TemplateEmailRequest {
      * Template variables to be replaced in the template.
      * Keys should match the Thymeleaf variable names in the template.
      */
-    private Map<String, Object> templateVariables;
+    private Map<String, String> templateVariables;
 }
 

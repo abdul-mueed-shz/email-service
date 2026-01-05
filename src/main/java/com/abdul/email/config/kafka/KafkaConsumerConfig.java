@@ -1,10 +1,6 @@
 package com.abdul.email.config.kafka;
 
-import com.abdul.email.domain.email.model.SendEmailInfo;
-
-import java.util.HashMap;
-import java.util.Map;
-
+import com.abdul.email.domain.email.model.EmailKafkaListenerDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -17,6 +13,9 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Configuration
 @EnableKafka
 @RequiredArgsConstructor
@@ -26,15 +25,15 @@ public class KafkaConsumerConfig {
     private final KafkaProperties kafkaProperties;
 
     @Bean
-    public ConsumerFactory<String, SendEmailInfo> emailConsumerFactory() {
+    public ConsumerFactory<String, EmailKafkaListenerDto> emailConsumerFactory() {
         Map<String, Object> props = commonConsumerProps(kafkaProperties.getGroups().getEmailGroup());
         props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "com.abdul.email.domain.email.model.SendEmailInfo");
         return new DefaultKafkaConsumerFactory<>(props);
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, SendEmailInfo> emailKafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, SendEmailInfo> factory = new ConcurrentKafkaListenerContainerFactory<>();
+    public ConcurrentKafkaListenerContainerFactory<String, EmailKafkaListenerDto> emailKafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, EmailKafkaListenerDto> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(emailConsumerFactory());
         return factory;
     }

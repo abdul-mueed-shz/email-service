@@ -14,7 +14,7 @@ spring:
       client:
         registration:
           cognito:
-            client-id: ${COGNITO_CLIENT_ID:44h6fpgh88996qset0a9ivagm3}
+            client-id: ${COGNITO_CLIENT_ID:44213p1236q213ivagm3}
             client-secret: ${COGNITO_CLIENT_SECRET:your-client-secret}
             authorization-grant-type: client_credentials
             scope: ${COGNITO_SCOPE:default-m2m-resource-server-10ms1p/read}

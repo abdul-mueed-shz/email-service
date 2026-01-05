@@ -3,10 +3,12 @@ package com.abdul.email.domain.email.usecase;
 import com.abdul.email.adapter.out.persistence.entity.Email;
 import com.abdul.email.adapter.out.persistence.repository.jpa.EmailJpaRepository;
 import com.abdul.email.domain.email.enums.EmailStatusEnum;
+import com.abdul.email.domain.email.model.EmailRequest;
+import com.abdul.email.domain.email.port.in.AbstractInitEmailUseCase;
 import com.abdul.email.domain.email.port.in.ProcessEmailUseCase;
-import com.abdul.email.domain.email.port.in.SendTextualEmailUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,8 +17,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class ProcessEmailUseCaseImpl implements ProcessEmailUseCase {
-    private final SendTextualEmailUseCase sendTextualEmailUseCase;
     private final EmailJpaRepository emailJpaRepository;
+    private final ApplicationContext applicationContext;
 
     @Override
     public void execute(Long id) {
@@ -35,7 +37,14 @@ public class ProcessEmailUseCaseImpl implements ProcessEmailUseCase {
             return;
         }
         try {
-            sendTextualEmailUseCase.executeAsync(email.getTargetEmail(), email.getSubject(), email.getBody());
+            AbstractInitEmailUseCase abstractInitEmailUseCase =
+                    (AbstractInitEmailUseCase) applicationContext.getBean(email.getType().getType());
+            abstractInitEmailUseCase.execute(
+                    EmailRequest.builder()
+                            .toEmail(email.getTargetEmail())
+                            .variables(email.getVariables())
+                            .build()
+            );
             email.setStatus(EmailStatusEnum.SENT);
             emailJpaRepository.save(email);
             log.info("Email sent to recipient {}", email.getTargetEmail());

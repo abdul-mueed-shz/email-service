@@ -1,19 +1,19 @@
 package com.abdul.email.adapter.in.web.controller;
 
 import com.abdul.email.domain.common.model.BaseResponseMessageInfo;
-import com.abdul.email.domain.email.model.ContactFormRequest;
-import com.abdul.email.domain.email.model.SendBulkTextEmailInfo;
-import com.abdul.email.domain.email.port.in.SendBulkEmailUseCase;
-import com.abdul.email.domain.email.port.in.TemplateEmailUseCase;
+import com.abdul.email.domain.email.enums.EmailTypeEnum;
+import com.abdul.email.domain.email.model.BulkEmailRequest;
+import com.abdul.email.domain.email.model.EmailRequest;
+import com.abdul.email.domain.email.port.in.AbstractInitEmailUseCase;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationContext;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
@@ -22,27 +22,46 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class EmailController {
 
-    private final SendBulkEmailUseCase sendBulkEmailUseCase;
-    private final TemplateEmailUseCase templateEmailUseCase;
+    private final ApplicationContext applicationContext;
 
-    @PostMapping("/contact-form")
+    @PostMapping("/{type}")
     public ResponseEntity<BaseResponseMessageInfo> sendContactFormEmail(
-            @Valid @RequestBody ContactFormRequest request) throws MessagingException {
-        log.info("Received contact form submission from: {}", request.getEmail());
-        templateEmailUseCase.sendContactFormEmail(request);
+            @PathVariable String type,
+            @Valid @RequestBody EmailRequest emailRequest) throws MessagingException {
+        validateType(type);
+        AbstractInitEmailUseCase sendEmailUseCase =
+                (AbstractInitEmailUseCase) applicationContext.getBean(type);
+        log.info("Received contact form submission from: {}", emailRequest.getVariables().get("email"));
+        sendEmailUseCase.execute(emailRequest);
         return ResponseEntity.ok(new BaseResponseMessageInfo("Email sent successfully!"));
     }
 
-    @PostMapping("/bulk")
-    public ResponseEntity<BaseResponseMessageInfo> sendBulkEmail(@Valid @RequestBody SendBulkTextEmailInfo sendBulkTextEmailInfo) {
-        sendBulkEmailUseCase.execute(sendBulkTextEmailInfo);
+    @PostMapping("/{type}/bulk")
+    public ResponseEntity<BaseResponseMessageInfo> sendBulkEmail(
+            @PathVariable String type,
+            @Valid @RequestBody BulkEmailRequest bulkEmailRequest) throws MessagingException {
+        validateType(type);
+        AbstractInitEmailUseCase sendEmailUseCase =
+                (AbstractInitEmailUseCase) applicationContext.getBean(type);
+        sendEmailUseCase.bulkExecute(bulkEmailRequest);
         return ResponseEntity.ok(new BaseResponseMessageInfo("Email sent successfully!"));
     }
 
-    @PostMapping("/bulk/schedule")
-    public ResponseEntity<BaseResponseMessageInfo> scheduleBulkEmail(@Valid @RequestBody SendBulkTextEmailInfo sendBulkTextEmailInfo) {
-        sendBulkEmailUseCase.schedule(sendBulkTextEmailInfo);
+    @PostMapping("/{type}/bulk/schedule")
+    public ResponseEntity<BaseResponseMessageInfo> scheduleBulkEmail(
+            @PathVariable String type,
+            @Valid @RequestBody BulkEmailRequest bulkEmailRequest) throws MessagingException {
+        validateType(type);
+        AbstractInitEmailUseCase sendEmailUseCase =
+                (AbstractInitEmailUseCase) applicationContext.getBean(type);
+        sendEmailUseCase.schedule(bulkEmailRequest, EmailTypeEnum.fromString(type));
         return ResponseEntity.ok(new BaseResponseMessageInfo());
+    }
+
+    private void validateType(String type) {
+        if (EmailTypeEnum.fromString(type) == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid email type");
+        }
     }
 
 }
