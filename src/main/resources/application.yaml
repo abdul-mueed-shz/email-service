@@ -2,7 +2,7 @@ server:
   port: 5000
 app:
   security:
-    enabled: false
+    enabled: ${SECURITY.ENABLED:false}
   email:
     admin-recipients:
       - ${APP_EMAIL_ADMIN_1:abdulmueedshahbaz@gmail.com}
