@@ -1,4 +1,24 @@
+app:
+  security:
+    enabled: true
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.eu-north-1.amazonaws.com/eu-north-1_LUBoPfUej
+          jwk-set-uri: https://cognito-idp.eu-north-1.amazonaws.com/eu-north-1_LUBoPfUej/.well-known/jwks.json
+      client:
+        registration:
+          cognito:
+            client-id: ${COGNITO_CLIENT_ID:44h6fpgh88996qset0a9ivagm3}
+            client-secret: ${COGNITO_CLIENT_SECRET:your-client-secret}
+            authorization-grant-type: client_credentials
+            scope: ${COGNITO_SCOPE:default-m2m-resource-server-10ms1p/read}
+        provider:
+          cognito:
+            token-uri: https://eu-north-1lubopfuej.auth.eu-north-1.amazoncognito.com/oauth2/token
+
   application:
     name: email-service
   mail:

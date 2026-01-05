@@ -1,7 +1,7 @@
 package com.abdul.email.adapter.out.messaging;
 
 
-import com.abdul.email.config.KafkaProperties;
+import com.abdul.email.config.kafka.KafkaProperties;
 import com.abdul.email.domain.email.model.NumericOtpInfo;
 import com.abdul.email.domain.email.port.in.OtpPublisher;
 import lombok.RequiredArgsConstructor;

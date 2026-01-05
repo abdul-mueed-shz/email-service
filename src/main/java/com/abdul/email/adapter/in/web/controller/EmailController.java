@@ -20,9 +20,9 @@ public class EmailController {
     private final SendBulkEmailUseCase sendBulkEmailUseCase;
 
     @PostMapping("/bulk")
-    public ResponseEntity<Void> sendBulkEmail(@Valid @RequestBody SendBulkTextEmailInfo sendBulkTextEmailInfo) {
+    public ResponseEntity<ResponseMessageInfo> sendBulkEmail(@Valid @RequestBody SendBulkTextEmailInfo sendBulkTextEmailInfo) {
         sendBulkEmailUseCase.execute(sendBulkTextEmailInfo);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new ResponseMessageInfo());
     }
 
     @PostMapping("/bulk/schedule")

@@ -1,8 +1,10 @@
-package com.abdul.email.config;
+package com.abdul.email.config.kafka;
 
 import com.abdul.email.domain.email.model.SendEmailInfo;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;

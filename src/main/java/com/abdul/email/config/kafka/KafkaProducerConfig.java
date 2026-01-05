@@ -1,9 +1,11 @@
-package com.abdul.email.config;
+package com.abdul.email.config.kafka;
 
 import com.abdul.email.domain.email.model.NumericOtpInfo;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;

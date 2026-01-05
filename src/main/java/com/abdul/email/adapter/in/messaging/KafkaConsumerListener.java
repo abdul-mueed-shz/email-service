@@ -1,6 +1,6 @@
 package com.abdul.email.adapter.in.messaging;
 
-import com.abdul.email.config.KafkaProperties;
+import com.abdul.email.config.kafka.KafkaProperties;
 import com.abdul.email.domain.email.model.SendEmailInfo;
 import com.abdul.email.domain.email.usecase.AbstractSendEmailUseCase;
 import lombok.RequiredArgsConstructor;
