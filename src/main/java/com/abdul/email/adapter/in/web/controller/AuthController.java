@@ -26,7 +26,7 @@ public class AuthController {
                         clientCredentialsAuthRequest.clientId(),
                         clientCredentialsAuthRequest.clientSecret(),
                         null
-                ));
+                ), "Token generated successfully!");
         return ResponseEntity.ok(responseMessageInfo);
     }
 }

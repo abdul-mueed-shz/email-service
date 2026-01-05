@@ -12,4 +12,9 @@ public class ResponseMessageInfo<T> extends BaseResponseMessageInfo {
         super();
         this.data = data;
     }
+
+    public ResponseMessageInfo(T data, String message) {
+        super(message);
+        this.data = data;
+    }
 }

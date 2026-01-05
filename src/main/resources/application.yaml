@@ -1,6 +1,9 @@
 app:
   security:
-    enabled: true
+    enabled: false
+  email:
+    admin-recipients:
+      - ${APP_EMAIL_ADMIN_1:abdulmueedshahbaz@gmail.com}
 spring:
   security:
     oauth2:
