@@ -22,7 +22,6 @@ public class SecurityEnabledConfig {
                 .authorizeHttpRequests(
                         auth -> auth
                                 // Public endpoints - no authentication required
-                                .requestMatchers("/api/v1/templates/**").permitAll()
                                 .requestMatchers("/api/v1/auth/**").permitAll()
                                 .requestMatchers("/h2-console/**").permitAll()
                                 .requestMatchers("/actuator/health").permitAll()

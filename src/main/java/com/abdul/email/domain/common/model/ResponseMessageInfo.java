@@ -1,16 +1,15 @@
 package com.abdul.email.domain.common.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-public class ResponseMessageInfo {
-    private String message;
+public class ResponseMessageInfo<T> extends BaseResponseMessageInfo {
+    private T data;
 
-    public ResponseMessageInfo() {
-        this.message = "Action successful!";
+    public ResponseMessageInfo(T data) {
+        super();
+        this.data = data;
     }
 }

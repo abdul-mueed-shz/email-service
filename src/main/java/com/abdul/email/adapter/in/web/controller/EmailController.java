@@ -1,6 +1,6 @@
 package com.abdul.email.adapter.in.web.controller;
 
-import com.abdul.email.domain.common.model.ResponseMessageInfo;
+import com.abdul.email.domain.common.model.BaseResponseMessageInfo;
 import com.abdul.email.domain.email.model.SendBulkTextEmailInfo;
 import com.abdul.email.domain.email.port.in.SendBulkEmailUseCase;
 import jakarta.validation.Valid;
@@ -20,15 +20,15 @@ public class EmailController {
     private final SendBulkEmailUseCase sendBulkEmailUseCase;
 
     @PostMapping("/bulk")
-    public ResponseEntity<ResponseMessageInfo> sendBulkEmail(@Valid @RequestBody SendBulkTextEmailInfo sendBulkTextEmailInfo) {
+    public ResponseEntity<BaseResponseMessageInfo> sendBulkEmail(@Valid @RequestBody SendBulkTextEmailInfo sendBulkTextEmailInfo) {
         sendBulkEmailUseCase.execute(sendBulkTextEmailInfo);
-        return ResponseEntity.ok(new ResponseMessageInfo());
+        return ResponseEntity.ok(new BaseResponseMessageInfo());
     }
 
     @PostMapping("/bulk/schedule")
-    public ResponseEntity<ResponseMessageInfo> scheduleBulkEmail(@Valid @RequestBody SendBulkTextEmailInfo sendBulkTextEmailInfo) {
+    public ResponseEntity<BaseResponseMessageInfo> scheduleBulkEmail(@Valid @RequestBody SendBulkTextEmailInfo sendBulkTextEmailInfo) {
         sendBulkEmailUseCase.schedule(sendBulkTextEmailInfo);
-        return ResponseEntity.ok(new ResponseMessageInfo());
+        return ResponseEntity.ok(new BaseResponseMessageInfo());
     }
 
 }
