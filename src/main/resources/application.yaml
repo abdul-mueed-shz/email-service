@@ -2,7 +2,7 @@ server:
   port: 5000
 app:
   security:
-    enabled: ${SECURITY.ENABLED:false}
+    enabled: ${SECURITY_ENABLED:false}
   email:
     admin-recipients:
       - ${APP_EMAIL_ADMIN_1:abdulmueedshahbaz@gmail.com}
@@ -29,8 +29,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${JAVA.MAIL.SENDER.EMAIL:no-reply@example.com}
-    password: ${JAVA.MAIL.SENDER.APP.PASSWORD:dummy-password}
+    username: ${JAVA_MAIL_SENDER_EMAIL:no-reply@example.com}
+    password: ${JAVA_MAIL_SENDER_APP_PASSWORD:dummy-password}
     properties:
       mail:
         smtp:
@@ -39,40 +39,40 @@ spring:
             enable: true
   h2:
     console:
-      enabled: ${H2.CONSOLE.ENABLED:true}
-      path: ${H2.CONSOLE.PATH:/h2-console}
+      enabled: ${H2_CONSOLE_ENABLED:true}
+      path: ${H2_CONSOLE_PATH:/h2-console}
   sql:
     init:
       platform: h2
 
   datasource:
-    username: ${SPRING.DATASOURCE.USERNAME:root}
-    password: ${SPRING.DATASOURCE.PASSWORD:root}
-    url: ${SPRING.DATASOURCE.URL:jdbc:h2:mem:testdb}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:root}
+    url: ${SPRING_DATASOURCE_URL:jdbc:h2:mem:testdb}
 
   jpa:
-    database-platform: ${JPA.DATABASE.PLATFORM:org.hibernate.dialect.H2Dialect} # H2 dialect for JPA
+    database-platform: ${JPA_DATABASE_PLATFORM:org.hibernate.dialect.H2Dialect} # H2 dialect for JPA
     hibernate:
-      ddl-auto: ${SPRING.JPA.HIBERNATE.DDL-AUTO:update} # Automatically creates and updates tables based on entities
-    show-sql: ${SPRING.JPA.SHOW-SQL:false}
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update} # Automatically creates and updates tables based on entities
+    show-sql: ${SPRING_JPA_SHOW_SQL:false}
     properties:
       hibernate:
-        format_sql: ${SPRING.JPA.PROPERTIES.HIBERNATE.FORMAT_SQL:false}
+        format_sql: ${SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL:false}
 
   kafka:
-    enabled: ${KAFKA.ENABLED:false}
-    bootstrap-servers: ${KAFKA.BOOTSTRAP.SERVERS:localhost:9092}
+    enabled: ${KAFKA_ENABLED:false}
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     groups:
-      email-group: ${KAFKA.GROUPS.EMAILS:defaultEmailGroup}
-      otp-group: ${KAFKA.GROUPS.OTP:defaultOtpGroup}
+      email-group: ${KAFKA_GROUPS_EMAILS:defaultEmailGroup}
+      otp-group: ${KAFKA_GROUPS_OTP:defaultOtpGroup}
 
     topics:
       consume:
-        email-topic: ${KAFKA.TOPICS.CONSUME.EMAILS:emails}
+        email-topic: ${KAFKA_TOPICS_CONSUME_EMAILS:emails}
       produce:
-        otp-topic: ${KAFKA.TOPICS.PRODUCE.OTP:generated-otp}
+        otp-topic: ${KAFKA_TOPICS_PRODUCE_OTP:generated-otp}
 
 # Email Job Scheduler Configuration
 email-job:
-  cron: ${EMAIL.JOB.CRON:0 */5 * * * *}  # Default: runs every 5 minutes
+  cron: ${EMAIL_JOB_CRON:0 */5 * * * *}  # Default: runs every 5 minutes
 
